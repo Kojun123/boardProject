@@ -24,14 +24,24 @@
 
 사용 기술
 ==
+<details>
+  <summary><b>더보기</b></summary>
+
+<!--summary 아래 빈칸 공백 두고 내용을 적는공간-->
 개발 언어 : Java(11)   
 데이터베이스 : H2   
 개발 환경 : SpringBoot 2.7.7, Spring data jpa, Spring Security, gradle, thymeleaf   
 사용 IDE : Intelli J Community   
 
+</details>
 
 
-8. 구조
-9. -패키지 구조
-10. db
-11. 후기
+구조
+==
+패키지 구조
+--
+db 구조
+--
+![ERD](https://user-images.githubusercontent.com/124665643/217448574-f507f8e4-04b5-4a6b-b795-34271308d38f.PNG)
+
+12. 후기
