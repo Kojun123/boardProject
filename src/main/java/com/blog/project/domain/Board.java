@@ -30,9 +30,8 @@ public class Board extends BaseTime{
     @OrderBy("id asc")
     private List<Comment> comment;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY) // 여러개의 게시글은 한명의 사용자가 작성 가능하다.
     @JoinColumn(name = "userId")
-
     private Users user;
 
 

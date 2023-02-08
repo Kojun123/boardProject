@@ -1,16 +1,21 @@
 package com.blog.project.controller;
 
 
+import com.blog.project.domain.Users;
 import com.blog.project.dto.user.UserCreateForm;
+import com.blog.project.dto.user.UserPwdChangeForm;
 import com.blog.project.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.security.Principal;
 
 @RequiredArgsConstructor
 @Controller
@@ -18,6 +23,7 @@ import javax.validation.Valid;
 public class UserController {
 
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/signup")
     public String signup(UserCreateForm userCreateForm){
@@ -43,4 +49,32 @@ public class UserController {
     public String login(){
         return "user/login";
     }
+
+    @GetMapping("/findPwd")
+    public String changePwd(UserPwdChangeForm userPwdChangeForm){
+        return "user/passwordFind";
+    }
+
+    @PostMapping("/findPwd") // 비밀번호 변경
+    public String changePwd(@Valid UserPwdChangeForm userPwdChangeForm, BindingResult bindingResult, Principal principal){
+
+        Users user = userService.getUser(principal.getName());
+
+        if (bindingResult.hasErrors()) {
+            return "user/passwordFind";
+        }
+
+        if (!passwordEncoder.matches(userPwdChangeForm.getNowPwd(),user.getPassword())){
+            bindingResult.rejectValue("now pwd","passwordNotMatch","현재 비밀번호가 일치하지 않습니다.");
+        }
+
+        if (!userPwdChangeForm.getChangePwd1().equals(userPwdChangeForm.getChangePwd2())){
+            bindingResult.rejectValue("change password2","passwordNotMatch","비밀번호가 일치하지 않습니다.");
+            return "user/passwordFind";
+        }
+
+        userService.changeUserPwd(user.getUserName(),userPwdChangeForm.getChangePwd2());
+        return "user/login";
+    }
+
 }

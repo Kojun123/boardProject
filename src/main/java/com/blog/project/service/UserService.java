@@ -28,6 +28,12 @@ public class UserService {
         return user;
     }
 
+    public void changeUserPwd(String userName,String pwd){
+        Users user = userRepository.findByuserName(userName).orElseThrow(UserNotFound::new);
+        user.passwordUpdate(passwordEncoder.encode(pwd));
+        userRepository.save(user);
+    }
+
     public Users getUser(String userName){
         Optional<Users> user = userRepository.findByuserName(userName);
         if (user.isPresent()) {
