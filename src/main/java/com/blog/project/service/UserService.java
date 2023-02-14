@@ -44,4 +44,12 @@ public class UserService {
         }
     }
 
+    public boolean checkEmailDuplicated(String email){
+        return userRepository.existsByEmail(email);
+    }
+
+    public boolean checkIdDuplicated(String Id){
+        return userRepository.existsByUserName(Id);
+    }
+
 }
