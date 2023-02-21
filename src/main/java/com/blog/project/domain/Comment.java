@@ -25,6 +25,7 @@ public class Comment extends BaseTime{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "boardId")
+    @JsonIgnore
     private Board board;
 
     @ManyToOne(fetch = FetchType.LAZY)

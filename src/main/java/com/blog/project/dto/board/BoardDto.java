@@ -4,6 +4,7 @@ import com.blog.project.domain.Board;
 import com.blog.project.domain.Comment;
 import com.blog.project.domain.Users;
 import com.blog.project.dto.comment.CommentDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import java.time.LocalDateTime;
