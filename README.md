@@ -2,6 +2,7 @@
 # BoardProject
 ![게시글전체조회-로그인상태](https://user-images.githubusercontent.com/124665643/218679740-f52a013d-08d9-4621-8d7e-15e300424a53.PNG)<br/>
 웹 게시판의 작성에 필요한 기술을 공부하고자 하여 직접 만들어본 첫 프로젝트 입니다. <br/><br/><br/>
+https://boardproject.shop/  해당 링크를 클릭하시면 홈페이지를 보실 수 있습니다.
 * * *
 # 목차
 [1.프로젝트 소개](#프로젝트-소개)<br><br><br>
