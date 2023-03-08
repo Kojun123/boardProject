@@ -4,6 +4,7 @@ import com.blog.project.domain.Board;
 import com.blog.project.domain.Comment;
 import com.blog.project.domain.Users;
 import com.blog.project.dto.comment.CommentDto;
+import com.blog.project.dto.user.UserDto;
 import com.blog.project.exception.BadRequest;
 import com.blog.project.exception.UserNotFound;
 import com.blog.project.service.BoardService;
@@ -32,7 +33,7 @@ public class CommentController {
     @PostMapping("/board/{id}/comment") // 댓글 작성
     @PreAuthorize("isAuthenticated()")
     public String CreateBoardComment(@PathVariable("id") Long id, @Valid CommentDto comment, Principal principal){
-        Users user = userService.getUser(principal.getName());
+        UserDto user = userService.getUser(principal.getName());
         commentService.CommentSave(id,comment,user);
         return String.format("redirect:/board/detail/%s",id);
     }

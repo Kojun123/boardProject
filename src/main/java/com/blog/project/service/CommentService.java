@@ -5,6 +5,7 @@ import com.blog.project.domain.Board;
 import com.blog.project.domain.Comment;
 import com.blog.project.domain.Users;
 import com.blog.project.dto.comment.CommentDto;
+import com.blog.project.dto.user.UserDto;
 import com.blog.project.exception.CommentNotFound;
 import com.blog.project.exception.PostNotFound;
 import com.blog.project.repository.BoardRepository;
@@ -25,10 +26,10 @@ public class CommentService {
     private final BoardRepository boardRepository;
 
 
-    public void CommentSave(Long id, CommentDto commentDto, Users user){ // 댓글 작성
+    public void CommentSave(Long id, CommentDto commentDto, UserDto user){ // 댓글 작성
         Board board = boardRepository.findById(id).orElseThrow(PostNotFound::new);
         commentDto.setUser(user);
-        commentDto.setBoard(board);
+        commentDto.setBoard(board.toBoardDto());
         Comment comment = commentDto.toEntity();
         commentRepository.save(comment);
     }

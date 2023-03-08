@@ -2,6 +2,8 @@ package com.blog.project.domain;
 
 
 import com.blog.project.dto.comment.CommentDto;
+import com.blog.project.dto.comment.CommentRequest;
+import com.blog.project.dto.user.UserDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -33,18 +35,18 @@ public class Comment extends BaseTime{
     private Users user;
 
     @Builder
-    public Comment(Long id, String boardComment, String createDate, String modifiedDate, Board board, Users user) {
+    public Comment(Long id, String boardComment, String createDate, String modifiedDate, Board board, UserDto user) {
         this.id = id;
         this.boardComment = boardComment;
         this.board = board;
-        this.user = user;
+        this.user = user.toEntity();
     }
 
     public Comment(CommentDto commentDto){
         this.id = commentDto.getId();
         this.boardComment = commentDto.getBoardComment();
-        this.board = commentDto.getBoard();
-        this.user = commentDto.getUser();
+        this.board = commentDto.getBoard().toEntity();
+        this.user = commentDto.getUser().toEntity();
     }
 
     public void updateComment(String boardComment){

@@ -2,6 +2,7 @@ package com.blog.project.service;
 
 
 import com.blog.project.domain.Users;
+import com.blog.project.dto.user.UserDto;
 import com.blog.project.exception.UserNotFound;
 import com.blog.project.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,15 +30,22 @@ public class UserService {
     }
 
     public void changeUserPwd(String userName,String pwd){
-        Users user = userRepository.findByuserName(userName).orElseThrow(UserNotFound::new);
+        Users user = userRepository.findByUserName(userName).orElseThrow(UserNotFound::new);
         user.passwordUpdate(passwordEncoder.encode(pwd));
         userRepository.save(user);
     }
 
-    public Users getUser(String userName){
-        Optional<Users> user = userRepository.findByuserName(userName);
+    public UserDto getUser(String userName){
+        Optional<Users> user = userRepository.findByUserName(userName);
         if (user.isPresent()) {
-            return user.get();
+            Users users = user.get();
+            UserDto userDto = UserDto.builder()
+                    .id(users.getId())
+                    .userName(users.getUserName())
+                    .email(users.getEmail())
+                    .password(users.getPassword())
+                    .build();
+            return userDto;
         }
         else {
             throw new UserNotFound();

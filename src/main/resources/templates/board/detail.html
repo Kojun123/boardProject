@@ -54,11 +54,18 @@
                     </span>
 
                     <!-- 댓글 수정 !-->
-                        <form th:action="@{|/comment/edit/${comment.id}|}" th:method="patch" sec:authorize="isAuthenticated()"
-                              th:if="${comment.user != null and #authentication.getPrincipal().getUsername() == comment.user.userName}"
-                        >
-                            <button type="submit" class="btn btn-primary my-2">수정</button>
-                        </form>
+
+                            <button type="submit" data-toggle="collapse" data-target="#collapseEdit" class="btn btn-primary my-2" sec:authorize="isAuthenticated()"
+                                    th:if="${comment.user != null and #authentication.getPrincipal().getUsername() == comment.user.userName}"
+                            >수정</button>
+
+                    <form th:action="@{|/comment/edit/${comment.id}|}" th:method="patch">
+                        <div class = "collapse" id="collapseEdit">
+                            <textarea th:name="boardComment" class="form-control" id="comment-content" rows="3"></textarea>
+                            <button type="submit" class="btn btn-outline-primary bi bi-pencil-square"> 수정 완료</button>
+                        </div>
+
+                    </form>
 
                     <!-- 댓글 삭제 !-->
                     <form id="CommentDeleteForm" th:action="@{|/comment/delete/${comment.id}|}" th:method="delete" sec:authorize="isAuthenticated()"

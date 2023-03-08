@@ -1,6 +1,7 @@
 package com.blog.project.domain;
 
 
+import com.blog.project.dto.user.UserDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -29,9 +30,11 @@ public class Users {
     private String email;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Comment> comment;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Board> board;
 
 
@@ -41,6 +44,16 @@ public class Users {
         this.userName = userName;
         this.password = password;
         this.email = email;
+    }
+
+    public UserDto toUserDto(){
+        UserDto userDto = UserDto.builder().
+                id(id)
+                .userName(userName)
+                .password(password)
+                .email(email)
+                .build();
+        return userDto;
     }
 
     public void passwordUpdate(String password){

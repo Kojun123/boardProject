@@ -3,6 +3,7 @@ package com.blog.project.controller;
 import com.blog.project.domain.Users;
 import com.blog.project.dto.board.BoardDto;
 import com.blog.project.dto.comment.CommentDto;
+import com.blog.project.dto.user.UserDto;
 import com.blog.project.exception.BadRequest;
 import com.blog.project.service.BoardService;
 import com.blog.project.service.CommentService;
@@ -56,7 +57,7 @@ public class BoardController {
     @PostMapping("/board") // [post]게시글 작성
     @PreAuthorize("isAuthenticated()")
     public String Save(BoardDto board, Model model, Principal principal){
-        Users user = userService.getUser(principal.getName());
+        UserDto user = userService.getUser(principal.getName());
         boardService.boardSave(board,user);
         model.addAttribute("message","글 작성 성공");
         model.addAttribute("url","/board");

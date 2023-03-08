@@ -18,7 +18,7 @@ spring:
   datasource:
     url: jdbc:h2:~/project_blog
     username: sa
-    password:
+    password: 1120
     driver-class-name: org.h2.Driver
 
   jpa:

@@ -1,10 +1,10 @@
 package com.blog.project.service;
 
 import com.blog.project.domain.Board;
-import com.blog.project.domain.Users;
+import com.blog.project.dto.board.BoardDto;
+import com.blog.project.dto.user.UserDto;
 import com.blog.project.exception.PostNotFound;
 import com.blog.project.repository.BoardRepository;
-import com.blog.project.dto.board.BoardDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,9 +13,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +55,7 @@ public class BoardService {
     }
 
 
-    public Board boardSave(BoardDto boardDto, Users user){
+    public Board boardSave(BoardDto boardDto, UserDto user){
         boardDto.setUser(user);
         return boardRepository.save(boardDto.toEntity());
     }

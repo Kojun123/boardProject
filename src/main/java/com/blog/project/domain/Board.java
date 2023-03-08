@@ -1,6 +1,7 @@
 package com.blog.project.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.blog.project.dto.board.BoardDto;
+import com.blog.project.dto.user.UserDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -36,13 +37,27 @@ public class Board extends BaseTime{
 
 
     @Builder
-    public Board(Long id, String title, String content, List<Comment> comment, Users user,int view) {
+    public Board(Long id, String title, String content, List<Comment> comment, UserDto user, int view) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.comment = comment;
         this.view = view;
-        this.user = user;
+        this.user = user.toEntity();
+    }
+
+    public BoardDto toBoardDto(){
+        BoardDto boardDto = BoardDto.builder()
+                .id(id)
+                .title(title)
+                .content(content)
+                .createdDate(this.getCreatedDate())
+                .modifiedDate(this.getModifiedDate())
+                .user(user.toUserDto())
+                .view(view)
+                .build();
+
+        return boardDto;
     }
 
     public void update(String title, String content){

@@ -3,6 +3,7 @@ package com.blog.project.controller;
 
 import com.blog.project.domain.Users;
 import com.blog.project.dto.user.UserCreateForm;
+import com.blog.project.dto.user.UserDto;
 import com.blog.project.dto.user.UserPwdChangeForm;
 import com.blog.project.repository.UserRepository;
 import com.blog.project.service.UserService;
@@ -70,7 +71,7 @@ public class UserController {
     @PostMapping("/findPwd") // 비밀번호 변경
     public String changePwd(@Valid UserPwdChangeForm userPwdChangeForm, BindingResult bindingResult, Principal principal){
 
-        Users user = userService.getUser(principal.getName());
+        UserDto user = userService.getUser(principal.getName());
 
         if (bindingResult.hasErrors()) {
             return "user/passwordFind";
